@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Case File Entry | Walil Sahab Diary</title>
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar"><nav class="nav-links">
+                <a href="operator_dashboard.html">Dashboard</a><a href="#" class="active">New Case File Entry</a>
+            </nav></aside>
+        <main class="main-content">
+            <header class="main-header"><h1>New Case File Entry / नया मामला दर्ज करें</h1></header>
+            <div class="section-panel">
+                <h2>Case Details and Initial Filing</h2>
+                <form class="case-form" action="#" method="post" enctype="multipart/form-data">
+                    <div class="form-row half-width"><label for="main_file_name">Main File Name:</label><input type="text" id="main_file_name" required></div>
+                    <div class="form-row half-width"><label for="client_name">Client Name:</label><input type="text" id="client_name" required></div>
+                    <div class="form-row half-width"><label for="mobile_number">Client Mobile Number:</label><input type="text" id="mobile_number" required></div>
+                    <div class="form-row half-width"><label for="village">Village/Town:</label><input type="text" id="village" required></div>
+                    <hr>
+                    <div class="form-row full-width"><label for="court_select">Court Name (Admin Set List):</label><select id="court_select" required><option value="">-- Select Mapped Court --</option></select></div>
+                    <div class="form-row half-width"><label for="act">Act / अधिनियम:</label><input type="text" id="act" placeholder="IPC 420, CrPC 125, etc."></div>
+                    <div class="form-row half-width"><label for="stage">Current Stage:</label><select id="stage" required><option value="">-- Select Stage --</option></select></div>
+                    <hr>
+                    <div class="form-row full-width"><label for="documents_pdf">Upload Initial Documents (PDF ONLY):</label><input type="file" id="documents_pdf" accept=".pdf" multiple></div>
+                    <div class="form-row submit-row">
+                        <button type="submit" class="cta-button" style="background-color: #27ae60;">Submit for Admin Approval</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

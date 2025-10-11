@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hearing Calendar | Walil Sahab Diary</title>
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar"><nav class="nav-links">
+            <a href="operator_dashboard.html">Dashboard</a><a href="operator_new_case.html">New Case</a><a href="#" class="active">Hearing Calendar</a></nav></aside>
+        <main class="main-content">
+            <header class="main-header"><h1>Hearing Calendar / सुनवाई कैलेंडर</h1></header>
+            <div class="section-panel">
+                <h2>My Calendar (Files Mapped to Me)</h2>
+                <div class="calendar-display" style="display: flex; gap: 20px;">
+                    <div style="flex: 2; border: 1px solid #ddd; padding: 15px; border-radius: 8px;"><h3>Monthly View</h3></div>
+                    <div style="flex: 3; border: 1px solid #c0392b; padding: 15px; border-radius: 8px; background-color: #fef0f0;">
+                        <h3>Files for Today (Oct 11, 2025)</h3>
+                        <ul class="file-list"><li><strong>WSD/1001:</strong> Sharma V/S Gupta - Evidence (DC Jaipur)</li></ul>
+                    </div>
+                </div>
+            </div>
+            <div class="section-panel" style="margin-top: 30px;" id="correction_request">
+                <h2>Hearing Date Correction Request (Admin Approval)</h2>
+                <form class="case-form" style="display: block;">
+                    <div class="form-row half-width"><label for="case_id">Case ID:</label><input type="text" id="case_id" required></div>
+                    <div class="form-row half-width"><label for="new_date">New Hearing Date:</label><input type="date" id="new_date" required></div>
+                    <div class="form-row full-width"><label for="reason">Reason for Change:</label><textarea id="reason" rows="2" required></textarea></div>
+                    <button type="submit" class="cta-button" style="width: auto; margin-top: 20px; background-color: #c0392b;">Submit Date Change Request to Admin</button>
+                </form>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

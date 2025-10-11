@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Walil Sahab Diary</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <h2 class="logo-text">⚖️ Walil Sahab Diary</h2>
+            <p class="slogan">आपका डिजिटल न्यायिक सहायक</p>
+            <div class="login-tabs">
+                <button class="active">Operator Login</button>
+                <button>Admin/Client Login</button>
+            </div>
+            <form action="operator_dashboard.html" method="GET" class="login-form"> 
+                <label for="mobile">Login ID / मोबाइल नंबर:</label>
+                <input type="text" id="mobile" placeholder="Your Registered ID" required>
+                <label for="password">Password / पासवर्ड:</label>
+                <input type="password" id="password" required>
+                <button type="submit" class="cta-button">
+                    लॉग इन करें / Log In
+                </button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Admin Dashboard | Walil Sahab Diary</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="logo-area">
+                <h2 class="logo-text">⚖️ Walil Sahab Diary</h2>
+                <p class="slogan">न्याय की ओर</p>
+            </div>
+            <nav class="nav-links">
+                <a href="#" class="active" data-en="Dashboard" data-hi="डैशबोर्ड">डैशबोर्ड</a>
+                <a href="#chamber_setup" data-en="Chamber/Office Setup" data-hi="चेंबर/ऑफिस सेटअप">चेंबर/ऑफिस सेटअप</a>
+                <a href="#admin_mgmt" data-en="Admin/User Management" data-hi="एडमिन/यूज़र प्रबंधन">एडमिन/यूज़र प्रबंधन</a>
+                <a href="#mapping" data-en="Operator-Admin Mapping Control" data-hi="ऑपरेटर-एडमिन मैपिंग कंट्रोल">ऑपरेटर-एडमिन मैपिंग कंट्रोल</a>
+                <a href="#approvals" data-en="Pending Operator Approvals" data-hi="लंबित ऑपरेटर अनुमोदन">लंबित ऑपरेटर अनुमोदन</a> 
+            </nav>
+        </aside>
+        <main class="main-content">
+            <header class="main-header"><h1>Master Admin Control Panel</h1></header>
+            <div class="metrics-grid">
+                <div class="metric-card red-bg" id="approvals"><h3>Pending Approvals / लंबित अनुमोदन</h3><p class="count">7</p></div>
+                <div class="metric-card blue-bg"><h3>Total Users (Firm)</h3><p class="count">5 Admins | 25 Ops</p></div>
+                <div class="metric-card green-bg"><h3>System Health & Data</h3><p class="count">100%</p></div>
+            </div>
+            <div class="section-panel" id="chamber_setup">
+                <h2>Chamber/Office Setup & Management</h2>
+                <div style="border: 1px solid #eee; padding: 20px; margin-top: 20px;">
+                    <h3>Register New Law Chamber/Office</h3>
+                    <form style="display: flex; flex-direction: column; gap: 15px;">
+                        <input type="text" placeholder="Chamber/Office Name">
+                        <input type="text" placeholder="Advocate-in-Charge Name">
+                        <input type="text" placeholder="Initial Admin Mobile Number (Login ID)">
+                        <button type="submit" class="cta-button" style="width: 100%; background-color: #27ae60;">Generate Chamber ID & Create Initial Admin</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Walil Sahab Diary</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="logo-area">
+                <h2 class="logo-text">⚖️ Walil Sahab Diary</h2>
+                <p class="slogan">न्याय की ओर</p>
+            </div>
+            <nav class="nav-links">
+                <a href="#" class="active" data-en="Dashboard" data-hi="डैशबोर्ड">डैशबोर्ड</a>
+                <a href="#pending" data-en="Pending Approvals" data-hi="लंबित अनुमोदन">लंबित अनुमोदन</a> 
+                <a href="operator_new_case.html" data-en="New File Entry (Self)" data-hi="नई फ़ाइल एंट्री (स्वयं)">नई फ़ाइल एंट्री (स्वयं)</a>
+                <a href="#calendar" data-en="Hearing Calendar" data-hi="सुनवाई कैलेंडर">सुनवाई कैलेंडर</a>
+                <a href="#user_mgmt" data-en="User Management" data-hi="उपयोगकर्ता प्रबंधन">उपयोगकर्ता प्रबंधन</a> 
+                <a href="#court_setup" data-en="Court Master Setup" data-hi="कोर्ट मास्टर सेटअप">कोर्ट मास्टर सेटअप</a>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <header class="main-header"><h1>Admin Control Panel</h1></header>
+            <div class="metrics-grid">
+                <div class="metric-card red-bg" id="pending"><h3>Pending Approvals</h3><p class="count">4</p></div>
+                <div class="metric-card blue-bg"><h3>My Mapped Operators</h3><p class="count">5</p></div>
+                <div class="metric-card green-bg"><h3>Active Cases (My Team)</h3><p class="count">180</p></div>
+            </div>
+            <div class="section-panel">
+                <h2>Action Required: Operator Approvals</h2>
+                <table class="approval-table">
+                    <thead><tr><th>Type</th><th>Operator</th><th>Case ID</th><th>Action</th></tr></thead>
+                    <tbody><tr><td>New Case Entry</td><td>Sunil K.</td><td>Pending/New</td><td><button class="approve-btn">Review & Approve</button></td></tr></tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
