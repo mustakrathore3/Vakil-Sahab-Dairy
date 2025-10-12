@@ -3,45 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Client Case Status | Vakil Sahab Dairy</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Client Case Status | Vakil Sahab Diary</title>
+    <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
     <div class="dashboard-container">
-        <main class="main-content" style="width: 100%;">
+        <aside class="sidebar">
+            <div class="logo-area"><h2 class="logo-text">⚖️ Vakil Sahab Diary</h2><p class="slogan">न्याय की ओर</p></div>
+            <nav class="nav-links">
+                <a href="#" class="active">Case Status</a>
+                <a href="#documents">Documents</a>
+                <a href="#advice">Advice History</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
             <header class="main-header">
-                <h1>Welcome, Client! (Case Status)</h1>
+                <h1>Client Case Status</h1>
                 <div class="user-info">
+                    <span>Welcome, Client! (Mobile: 9876543210)</span> 
                     <button class="logout-btn" onclick="location.href='index.html';">Log Out</button>
                 </div>
             </header>
             
-            <div class="section-panel" style="background-color: #fff3e0; border-left: 5px solid #f39c12;">
-                <h2>Your Registered Cases (Only Approved Files)</h2>
-                
-                <div style="margin-top: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 15px;">
-                    <h3>Case ID: WSD/25/1001 (Sharma V/S Gupta)</h3>
-                    <div class="case-summary-grid">
-                        <div><strong>Next Hearing Date:</strong> 25-Oct-2025</div>
-                        <div><strong>Current Stage:</strong> Evidence Recording</div>
-                        <div><strong>Court:</strong> DC Jaipur</div>
-                    </div>
-                    
-                    <div style="margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px;">
-                        <h4>Document Access / Case Contact</h4>
-                        <button class="cta-button" style="width: auto; background-color: #2980b9;">Request Document Access (Admin Approval)</button>
-                        <button class="cta-button" style="width: auto; background-color: #27ae60; margin-left: 10px;" onclick="document.getElementById('contact_form_1001').style.display='block'">Case Contact/Advice</button>
-                    </div>
-                    
-                    <form id="contact_form_1001" style="margin-top: 20px; display:none;">
-                        <textarea rows="4" placeholder="Type your advice or message here (Max 2000 words)" maxlength="2000" style="width: 100%; padding: 10px;"></textarea>
-                        <input type="file" accept=".pdf" style="margin-top: 10px;">
-                        <button type="submit" class="cta-button" style="width: auto; background-color: #4a148c; margin-top: 10px;">Send Message to Admin</button>
-                    </form>
-                </div>
-
+            <div class="section-panel">
+                <h2>Loading Case Data...</h2>
+                <p>Please wait while we securely fetch your case files from the database.</p>
             </div>
+            
         </main>
     </div>
+
+    <script>
+        // Aapka Apps Script Web app URL yahaan daal diya gaya hai
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxqsj-jfgbJntvYt0qGcAxClD3nFDtE1ekFHEYOqebSpONwCpnFbF8_zcu5ww5-5oAGvg/exec";
+        
+        // Demo Mobile Number: Yeh number aapki '4. CASE_DATA' sheet se data filter karega.
+        const CLIENT_MOBILE_NUMBER = "9876543210"; 
+        
+        async function fetchCaseData() {
+            try {
+                const panel = document.querySelector('.section-panel');
+                panel.innerHTML = `<h2>Fetching Case Data...</h2><p>Please wait...</p>`;
+
+                // 1. Apps Script (Google Sheet) se data fetch karna
+                const response = await fetch(WEB_APP_URL);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const fullData = await response.json();
+                
+                // 2. Data ko process karna
+                const headers = fullData[0];
+                const caseData = fullData.slice(1);
+                
+                // Headers ke index nikalna (Zaroori hai!)
+                const mobileIndex = headers.indexOf("CLIENT_MOBILE");
+                const approvedIndex = headers.indexOf("IS_APPROVED");
+                const fileNameIndex = headers.indexOf("FILE_NAME");
+                const nextHearingIndex = headers.indexOf("NEXT_HEARING");
+                const stageIndex = headers.indexOf("CURRENT_STAGE");
+                const caseNumIndex = headers.indexOf("NEW_CASE_NUM");
+                const courtNameIndex = headers.indexOf("COURT_NAME");
+                
+                // 3. Client ka data filter karna
+                const clientCases = caseData.filter(row => 
+                    row[mobileIndex] == CLIENT_MOBILE_NUMBER && row[approvedIndex] == "YES"
+                );
+                
+                displayCases(clientCases, headers);
+                
+            } catch (error) {
+                console.error("Data fetching failed:", error);
+                document.querySelector('.section-panel').innerHTML = 
+                    `<h2 style="color:red;">⚠️ Error! Could not connect to the database.</h2><p>Please try reloading the page. If the issue persists, contact the Advocate's office.</p>`;
+            }
+        }
+
+        function displayCases(cases, headers) {
+            const panel = document.querySelector('.section-panel');
+            panel.innerHTML = `<h2>Your Registered Cases (Mobile: ${CLIENT_MOBILE_NUMBER})</h2>`;
+
+            if (cases.length === 0) {
+                panel.innerHTML += `<p style="font-weight: 600;">⚠️ No approved cases found for this mobile number. Please contact your Advocate's office.</p>`;
+                return;
+            }
+
+            // Har case ko display karna
+            cases.forEach((caseRow, index) => {
+                const fileName = caseRow[headers.indexOf("FILE_NAME")];
+                const nextHearing = caseRow[headers.indexOf("NEXT_HEARING")];
+                const currentStage = caseRow[headers.indexOf("CURRENT_STAGE")];
+                const caseNum = caseRow[headers.indexOf("NEW_CASE_NUM")];
+                const courtName = caseRow[headers.indexOf("COURT_NAME")];
+                
+                const caseHtml = `
+                    <div style="margin-top: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 15px;">
+                        <h3>Case ID: ${caseNum || 'N/A'} (${fileName})</h3>
+                        <div class="case-summary-grid" style="display: flex; gap: 20px; flex-wrap: wrap;">
+                            <div style="flex-basis: 30%;"><strong>Next Hearing Date:</strong> ${nextHearing || 'N/A'}</div>
+                            <div style="flex-basis: 30%;"><strong>Current Stage:</strong> ${currentStage || 'N/A'}</div>
+                            <div style="flex-basis: 30%;"><strong>Court:</strong> ${courtName || 'N/A'}</div>
+                        </div>
+                        
+                        <div style="margin-top: 20px; border-top: 1px solid #eee; padding-top: 15px;">
+                            <h4>Document Access / Case Contact</h4>
+                            <button class="cta-button" style="width: auto; background-color: #2980b9;">Request Document Access (Admin Approval)</button>
+                            <button class="cta-button" style="width: auto; background-color: #27ae60; margin-left: 10px;" onclick="document.getElementById('contact_form_${index}').style.display='block'">Case Contact/Advice</button>
+                        </div>
+                        
+                        <form id="contact_form_${index}" style="margin-top: 20px; display:none;">
+                            <textarea rows="4" placeholder="Type your advice or message here (Max 2000 words)" maxlength="2000" style="width: 100%; padding: 10px;"></textarea>
+                            <input type="file" accept=".pdf" style="margin-top: 10px;">
+                            <button type="submit" class="cta-button" style="width: auto; background-color: #4a148c; margin-top: 10px;">Send Message to Admin</button>
+                        </form>
+                    </div>
+                `;
+                panel.innerHTML += caseHtml;
+            });
+        }
+
+        // Page load hone par data fetch karein
+        window.onload = fetchCaseData;
+    </script>
 </body>
 </html>
