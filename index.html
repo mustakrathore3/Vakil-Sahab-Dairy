@@ -3,77 +3,205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | Vakil Sahab Dairy</title>
+    <title>Vakil Sahab Diary - Login</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: #f0f2f5;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            padding: 30px;
+            background-color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            text-align: center;
+        }
+        .logo {
+            font-size: 36px;
+            color: #4b0082; /* Deep Purple */
+            margin-bottom: 10px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus {
+            border-color: #6a0dad;
+            outline: none;
+        }
+        .cta-button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4b0082; /* Deep Purple */
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .cta-button:hover {
+            background-color: #6a0dad;
+            transform: translateY(-1px);
+        }
+        .portal-selection {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        .portal-selection button {
+            background: none;
+            border: none;
+            color: #2980b9;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            display: block;
+            width: 100%;
+            padding: 10px 0;
+            transition: color 0.3s;
+        }
+        .portal-selection button:hover {
+            color: #1a5c88;
+        }
+        
+        .message-box {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 10px;
+            border: 1px solid #ffeeba;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        /* Specific form styles for Operator and Client */
+        #operatorLoginForm {
+            display: none;
+        }
+        #clientLoginForm {
+            display: block; /* Client is default view */
+        }
+
+    </style>
 </head>
 <body>
     <div class="login-container">
-        <div class="login-box">
-            <h2 class="logo-text">⚖️ Vakil Sahab Dairy</h2>
-            <p class="slogan">आपका डिजिटल न्यायिक सहायक</p>
-            
-            <button onclick="location.href='registration.html'" class="cta-button" style="background-color: #27ae60; margin-bottom: 20px;">
-                नया रजिस्ट्रेशन करें (Advocate)
-            </button>
-            
-            <h3>Login Panel</h3>
-            <form action="operator_dashboard.html" method="GET" class="login-form"> 
-                <label for="role_select">Select Login Type:</label>
-                <select id="role_select" onchange="updateLoginForm(this.value)">
-                    <option value="admin">1. Admin Login (Email/Password)</option>
-                    <option value="operator" selected>2. Operator/Assistant Login (Mobile/Password)</option>
-                    <option value="client">3. Client Login (Mobile/OTP)</option>
-                </select>
-                
-                <div id="credentials_form">
-                    <label for="user_id">Mobile Number:</label>
-                    <input type="text" id="user_id" placeholder="Your Registered Mobile Number" required>
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" placeholder="Password (Default: Opretor@123)" required>
-                    <a href="#" class="forgot-link">Forget Password? (Admin Approval Required)</a>
-                </div>
-                
-                <button type="submit" class="cta-button">लॉग इन करें / Log In</button>
-            </form>
+        <div class="logo">⚖️</div>
+        <h1>वकील साहब डायरी</h1>
+        
+        <div class="message-box" id="error-message"></div>
+
+        <!-- CLIENT LOGIN FORM -->
+        <form id="clientLoginForm">
+            <h2 style="font-size: 20px; color: #4b0082; margin-bottom: 20px;">क्लाइंट पोर्टल लॉगिन</h2>
+            <div class="form-group">
+                <label for="clientMobile">मोबाइल नंबर (10 अंक)</label>
+                <input type="tel" id="clientMobile" name="mobile" placeholder="e.g. 9988776655" required maxlength="10">
+            </div>
+            <button type="submit" class="cta-button">केस स्टेटस चेक करें</button>
+        </form>
+
+        <!-- OPERATOR LOGIN FORM -->
+        <form id="operatorLoginForm">
+            <h2 style="font-size: 20px; color: #2980b9; margin-bottom: 20px;">ऑपरेटर लॉगिन</h2>
+            <div class="form-group">
+                <label for="operatorId">ऑपरेटर ID</label>
+                <input type="text" id="operatorId" name="operatorId" placeholder="e.g. OP-001" required>
+            </div>
+            <div class="form-group">
+                <label for="operatorPassword">पासवर्ड</label>
+                <input type="password" id="operatorPassword" name="password" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="cta-button" style="background-color: #2980b9;">लॉगिन</button>
+        </form>
+
+        <div class="portal-selection">
+            <button id="togglePortal">ऑपरेटर लॉगिन पर स्विच करें</button>
         </div>
     </div>
+
     <script>
-        function updateLoginForm(role) {
-            const formDiv = document.getElementById('credentials_form');
-            const form = document.querySelector('.login-form');
-            // Login check hone par yeh actions change honge
-            form.action = role === 'admin' ? 'admin_panel.html' : 
-                           role === 'operator' ? 'operator_dashboard.html' : 
-                           'client_status.html';
-                           
-            let html = '';
-            if (role === 'admin') {
-                html = `
-                    <label for="user_id">Email ID (User Name):</label>
-                    <input type="email" id="user_id" placeholder="Your Registered Email" required>
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" placeholder="Password (Default: Admin@123)" required>
-                    <a href="#" class="forgot-link">Forget Password?</a>
-                `;
-            } else if (role === 'operator') {
-                 html = `
-                    <label for="user_id">Mobile Number:</label>
-                    <input type="text" id="user_id" placeholder="Your Registered Mobile Number" required>
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" placeholder="Password (Default: Opretor@123)" required>
-                    <a href="#" class="forgot-link">Forget Password? (Admin Approval Required)</a>
-                `;
-            } else if (role === 'client') {
-                 html = `
-                    <label for="user_id">Mobile Number:</label>
-                    <input type="text" id="user_id" placeholder="Case Entry mein Diya Gaya Mobile Number" required>
-                    <button type="button" class="cta-button" style="background-color: #f39c12; margin-top: 10px;">Send OTP</button>
-                    <label for="otp">Enter OTP:</label>
-                    <input type="text" id="otp" placeholder="Enter OTP received on mobile" required>
-                `;
+        const clientForm = document.getElementById('clientLoginForm');
+        const operatorForm = document.getElementById('operatorLoginForm');
+        const toggleButton = document.getElementById('togglePortal');
+        const errorMessageDiv = document.getElementById('error-message');
+
+        // --- Portal Toggle Logic ---
+        toggleButton.addEventListener('click', () => {
+            if (clientForm.style.display === 'block') {
+                clientForm.style.display = 'none';
+                operatorForm.style.display = 'block';
+                toggleButton.textContent = 'क्लाइंट पोर्टल पर स्विच करें';
+            } else {
+                clientForm.style.display = 'block';
+                operatorForm.style.display = 'none';
+                toggleButton.textContent = 'ऑपरेटर लॉगिन पर स्विच करें';
             }
-            formDiv.innerHTML = html;
-        }
+            errorMessageDiv.style.display = 'none'; // Clear any previous error
+        });
+
+        // --- Client Form Submission Logic ---
+        clientForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            errorMessageDiv.style.display = 'none';
+            
+            const mobileInput = document.getElementById('clientMobile');
+            const mobileNumber = mobileInput.value.trim();
+
+            if (mobileNumber.length !== 10 || isNaN(mobileNumber)) {
+                errorMessageDiv.textContent = '❌ कृपया 10 अंकों का सही मोबाइल नंबर डालें।';
+                errorMessageDiv.style.display = 'block';
+                return;
+            }
+
+            // Client ko sahi URL ke saath redirect karna
+            window.location.href = `client_status.html?mobile=${mobileNumber}`;
+        });
+
+        // --- Operator Form Submission Logic ---
+        operatorForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            errorMessageDiv.style.display = 'none';
+            
+            const operatorId = document.getElementById('operatorId').value.trim();
+            const password = document.getElementById('operatorPassword').value.trim();
+
+            // Simple hardcoded check for demonstration (REAL APPS USE FIREBASE AUTH)
+            if (operatorId === 'OP-001' && password === 'admin123') {
+                // Operator ko Dashboard par redirect karna
+                window.location.href = 'operator_dashboard.html';
+            } else {
+                errorMessageDiv.textContent = '❌ गलत ऑपरेटर ID या पासवर्ड।';
+                errorMessageDiv.style.display = 'block';
+            }
+        });
     </script>
 </body>
 </html>
