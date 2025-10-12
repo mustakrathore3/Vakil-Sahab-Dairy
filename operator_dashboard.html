@@ -14,6 +14,46 @@
             overflow: hidden;
             margin-top: 15px;
         }
+        /* New Form Styling */
+        .new-case-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .new-case-form-grid input, .new-case-form-grid select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-message {
+            grid-column: span 2;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+            display: none; /* Default hidden */
+            font-weight: bold;
+        }
+        .success { background-color: #d4edda; color: #155724; }
+        .error { background-color: #f8d7da; color: #721c24; }
+        
+        /* Layout */
+        .dashboard-container {
+            display: flex;
+        }
+        .two-column-layout {
+            display: flex;
+            gap: 20px;
+        }
+        .main-panel {
+            flex: 2;
+        }
+        .side-panel {
+            flex: 1;
+            /* Placeholder styles if you want a sidebar */
+        }
+        .cta-button.secondary, .cta-button.tertiary {
+            background-color: #2980b9; 
+        }
     </style>
 </head>
 <body>
@@ -38,7 +78,8 @@
             </header>
 
             <section class="quick-actions-bar">
-                <button class="cta-button" onclick="window.open('https://forms.gle/USZ9rMXGibM9FdCp6', '_blank');">
+                <!-- Button ab form ko show karega -->
+                <button class="cta-button" onclick="document.getElementById('newCasePanel').style.display='block';">
                     + नयी केस एंट्री
                 </button>
                 <button class="cta-button secondary">
@@ -48,11 +89,39 @@
                     ⚙️ प्रोफाइल सेटिंग्स
                 </button>
             </section>
+            
+            <!-- NEW CASE ENTRY FORM PANEL -->
+            <div class="section-panel" id="newCasePanel" style="display:none;">
+                <h2>नयी केस एंट्री (Firebase में सीधा सेव)</h2>
+                <div class="form-message" id="formMessage"></div>
+                <form id="newCaseForm" class="new-case-form-grid">
+                    <input type="text" name="fileName" placeholder="फ़ाइल का नाम (e.g., Sharma V/S Gupta)" required>
+                    <input type="text" name="clientMobile" placeholder="क्लाइंट मोबाइल (e.g., 9876543210)" required>
+                    <input type="text" name="caseNum" placeholder="केस नंबर (e.g., WSD/1001/25)" required>
+                    <input type="text" name="courtName" placeholder="कोर्ट का नाम" required>
+                    <input type="date" name="nextHearing" title="अगली सुनवाई की तारीख" required>
+                    <select name="currentStage" required>
+                        <option value="">केस की वर्तमान स्टेज चुनें</option>
+                        <option value="Notice">नोटिस</option>
+                        <option value="Evidence">गवाही</option>
+                        <option value="Final Arguments">फाइनल आर्गुमेंट्स</option>
+                        <option value="Decision">निर्णय</option>
+                        <option value="Appeal">अपील</option>
+                    </select>
+                    <!-- Admin Notes and Approval for internal use -->
+                    <textarea name="adminNotes" placeholder="एडमिन नोट्स (Optional)" style="grid-column: span 2;"></textarea>
+                    
+                    <button type="submit" class="cta-button" style="grid-column: span 2; background-color: #27ae60;">
+                        केस को डेटाबेस में सेव करें
+                    </button>
+                </form>
+            </div>
+            <!-- END NEW CASE ENTRY FORM PANEL -->
 
             <div class="two-column-layout">
                 <div class="main-panel">
                     <div class="section-panel">
-                        <h2>आपके पेंडिंग टास्क</h2>
+                        <h2>आपके पेंडिंग टास्क (Demo)</h2>
                         <table>
                             <thead>
                                 <tr>
@@ -69,51 +138,143 @@
                                     <td>2025-10-20</td>
                                     <td><button class="action-btn pending">View/Complete</button></td>
                                 </tr>
-                                <tr>
-                                    <td>अगले क्लाइंट को कॉल करें</td>
-                                    <td>WSD/078</td>
-                                    <td>2025-10-15</td>
-                                    <td><button class="action-btn approve">Complete</button></td>
-                                </tr>
-                                <tr>
-                                    <td>एडमिन से अप्रूवल लें</td>
-                                    <td>WSD/901</td>
-                                    <td>2025-10-22</td>
-                                    <td><button class="action-btn reject">Request</button></td>
-                                </tr>
+                                <!-- ... existing table rows ... -->
                             </tbody>
                         </table>
                     </div>
 
                     <div class="section-panel">
                         <h2>आज की सुनवाई (Calendar)</h2>
-                        <div class="calendar-embed-small">
+                         <div class="calendar-embed-small">
                             <iframe src="https://calendar.google.com/calendar/embed?height=250&wkst=1&bgcolor=%23ffffff&ctz=Asia%2FKolkata&src=bXVzdGFrcmF0aG9yZTNAZ21haWwuY29t&color=%23039BE5&showTitle=0" style="border:none;" width="100%" height="250" frameborder="0" scrolling="no"></iframe>
                         </div>
                     </div>
                 </div>
 
                 <aside class="side-panel">
+                    <!-- Placeholder for live case feed -->
                     <div class="section-panel">
-                        <h4>फ़ाइल मैनेजमेंट</h4>
-                        <ul class="file-list">
-                            <li>📂 WSD/155 - Sharma vs. State</li>
-                            <li>📂 WSD/201 - Rathi vs. Mehta</li>
-                            <li>📂 WSD/078 - Khan vs. Union</li>
-                            <li><button class="cta-button tertiary" style="width: 100%; margin-top: 10px;">सभी फ़ाइलें देखें</button></li>
-                        </ul>
-                    </div>
-
-                    <div class="section-panel">
-                        <h4>हाल के सबमिशन</h4>
-                        <ul>
-                            <li>New Client Doc (WSD/180)</li>
-                            <li>Password Reset Request (Sunil)</li>
-                        </ul>
+                        <h2>लाइव केस फीड</h2>
+                        <div id="liveCaseFeed">
+                            <p>नए केस यहाँ दिखेंगे...</p>
+                        </div>
                     </div>
                 </aside>
             </div>
         </main>
     </div>
+
+    <!-- Firebase SDKs -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        
+        // ====================================================================
+        // IMPORTANT: YAHAN APNA FIREBASE CONFIG OBJECT PASTE KAREIN
+        // ====================================================================
+        const firebaseConfig = {
+          apiKey: "AIzaSyADjPHjZ3fP2XELYqOK2RgXSXOAi3jP4cA",
+          authDomain: "vakil-sahab-dairy.firebaseapp.com",
+          projectId: "vakil-sahab-dairy",
+          storageBucket: "vakil-sahab-dairy.firebasestorage.app",
+          messagingSenderId: "610580761933",
+          appId: "1:610580761933:web:a2a631516b25063b1efb04"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        
+        const form = document.getElementById('newCaseForm');
+        const message = document.getElementById('formMessage');
+
+        // ====================================================================
+        // A. CASE SUBMISSION (Form Submit)
+        // ====================================================================
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            message.style.display = 'none';
+            
+            const formData = new FormData(form);
+            const data = {};
+            // FormData object ko JSON mein badalna
+            formData.forEach((value, key) => { data[key] = value; });
+
+            // Data ko sahi format mein taiyar karna
+            const newCaseData = {
+                timestamp: new Date().toISOString(), // Submission ka time
+                operatorId: data.operatorId || 'OP-001',
+                fileName: data.fileName,
+                clientMobile: data.clientMobile,
+                caseNum: data.caseNum,
+                courtName: data.courtName,
+                nextHearing: data.nextHearing,
+                currentStage: data.currentStage,
+                adminNotes: data.adminNotes || '',
+                isApproved: 'NO' // By default NO
+            };
+
+            try {
+                const submitButton = form.querySelector('button[type="submit"]');
+                submitButton.textContent = 'सेव हो रहा है...';
+                submitButton.disabled = true;
+
+                // Firestore mein naya document jodna
+                const docRef = await addDoc(collection(db, "cases"), newCaseData);
+
+                message.textContent = `✅ Success! केस ${newCaseData.caseNum} सेव हो गया है। Document ID: ${docRef.id}`;
+                message.className = 'form-message success';
+                message.style.display = 'block';
+                form.reset();
+
+            } catch (error) {
+                console.error("Firebase Submission Error:", error);
+                message.textContent = `❌ Error: डेटाबेस में सेव नहीं हो पाया। Error: ${error.message}`;
+                message.className = 'form-message error';
+                style.display = 'block';
+            } finally {
+                const submitButton = form.querySelector('button[type="submit"]');
+                submitButton.textContent = 'केस को डेटाबेस में सेव करें';
+                submitButton.disabled = false;
+                
+                setTimeout(() => {
+                    message.style.display = 'none';
+                    document.getElementById('newCasePanel').style.display = 'none';
+                }, 5000);
+            }
+        });
+
+        // ====================================================================
+        // B. LIVE CASE FEED (Real-time Update)
+        // ====================================================================
+        const liveCaseFeed = document.getElementById('liveCaseFeed');
+        
+        // Firestore se real-time data read karna
+        const q = query(collection(db, "cases")); // Saare cases ko fetch karna
+        
+        // onSnapshot Firestore ka magic hai - yeh real-time update karta hai!
+        const unsubscribe = onSnapshot(q, (snapshot) => {
+            let feedHTML = '<h3>नये केस की सूची:</h3>';
+            
+            snapshot.forEach((doc) => {
+                const data = doc.data();
+                feedHTML += `
+                    <div style="border-bottom: 1px solid #eee; padding: 10px 0;">
+                        <p style="margin: 0;"><strong>फ़ाइल:</strong> ${data.fileName}</p>
+                        <p style="margin: 0; font-size: 0.9em;"><strong>केस नं:</strong> ${data.caseNum} | <strong>स्टेज:</strong> <span style="color:#2980b9;">${data.currentStage}</span></p>
+                        <p style="margin: 0; font-size: 0.8em; color: #777;">Added: ${new Date(data.timestamp).toLocaleDateString('hi-IN')}</p>
+                    </div>
+                `;
+            });
+
+            liveCaseFeed.innerHTML = feedHTML;
+        }, (error) => {
+            console.error("Error listening to Firestore:", error);
+            liveCaseFeed.innerHTML = '<p style="color:red;">डेटाबेस कनेक्ट नहीं हो पाया।</p>';
+        });
+
+        // NOTE: Agar aap is page ko chhodte hain, toh aapko unsubscribe call karna chahiye.
+        // window.addEventListener('beforeunload', unsubscribe);
+    </script>
 </body>
 </html>
