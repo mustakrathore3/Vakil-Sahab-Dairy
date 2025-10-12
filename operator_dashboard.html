@@ -3,36 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Operator Dashboard | Vakil Sahab Dairy</title>
-    <link rel="stylesheet" href="style.css"> 
+    <title>Operator Dashboard | Vakil Sahab Diary</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Placeholder for calendar if needed */
+        .calendar-embed-small {
+            height: 250px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 15px;
+        }
+    </style>
 </head>
 <body>
     <div class="dashboard-container">
         <aside class="sidebar">
-            <div class="logo-area"><h2 class="logo-text">⚖️ Vakil Sahab Dairy</h2><p class="slogan">न्याय की ओर</p></div>
+            <div class="logo-area"><h2 class="logo-text">⚖️ Vakil Sahab Diary</h2></div>
             <nav class="nav-links">
-                <a href="#" class="active">डैशबोर्ड</a>
-                <a href="operator_new_case.html">1. New Case Entry</a>
-                <a href="operator_calendar.html">2. Hearing Calender</a>
-                <a href="#correction">3. Old Case Entry Correction</a>
-                <a href="#search">4. File Search</a>
-                <a href="#document_upload">5. Document Upload</a>
+                <a href="#" class="active">होम</a>
+                <a href="#">केस सर्च</a>
+                <a href="#">रिपोर्ट्स</a>
+                <a href="#">क्लाइंट पोर्टल लिंक</a>
             </nav>
         </aside>
+
         <main class="main-content">
             <header class="main-header">
-                <h1>Operator Control Panel</h1>
+                <h1>ऑपरेटर डैशबोर्ड (Welcome, Sunil)</h1>
                 <div class="user-info">
-                    <span>Welcome, Operator Sunil!</span> 
+                    <span>Operator ID: OP-001</span>
                     <button class="logout-btn" onclick="location.href='index.html';">Log Out</button>
                 </div>
             </header>
-            <div class="metrics-grid">
-                <div class="metric-card red-bg"><h3>Today's Hearings</h3><p class="count">4</p></div>
-                <div class="metric-card blue-bg"><h3>My Active Cases</h3><p class="count">85</p></div>
-                <div class="metric-card green-bg"><h3>Pending Approval Status</h3><p class="count">2</p></div>
+
+            <section class="quick-actions-bar">
+                <button class="cta-button" onclick="window.open('https://forms.gle/USZ9rMXGibM9FdCp6', '_blank');">
+                    + नयी केस एंट्री
+                </button>
+                <button class="cta-button secondary">
+                    📆 अगले 7 दिनों की सुनवाई
+                </button>
+                <button class="cta-button tertiary">
+                    ⚙️ प्रोफाइल सेटिंग्स
+                </button>
+            </section>
+
+            <div class="two-column-layout">
+                <div class="main-panel">
+                    <div class="section-panel">
+                        <h2>आपके पेंडिंग टास्क</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Task</th>
+                                    <th>Case ID</th>
+                                    <th>Due Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>फ़ाइल 155 की तैयारी</td>
+                                    <td>WSD/155</td>
+                                    <td>2025-10-20</td>
+                                    <td><button class="action-btn pending">View/Complete</button></td>
+                                </tr>
+                                <tr>
+                                    <td>अगले क्लाइंट को कॉल करें</td>
+                                    <td>WSD/078</td>
+                                    <td>2025-10-15</td>
+                                    <td><button class="action-btn approve">Complete</button></td>
+                                </tr>
+                                <tr>
+                                    <td>एडमिन से अप्रूवल लें</td>
+                                    <td>WSD/901</td>
+                                    <td>2025-10-22</td>
+                                    <td><button class="action-btn reject">Request</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="section-panel">
+                        <h2>आज की सुनवाई (Calendar)</h2>
+                        <div class="calendar-embed-small">
+                            <iframe src="https://calendar.google.com/calendar/embed?height=250&wkst=1&bgcolor=%23ffffff&ctz=Asia%2FKolkata&src=en.indian%23holiday%40group.v.calendar.google.com&color=%23039BE5" style="border:none;" width="100%" height="250" frameborder="0" scrolling="no"></iframe>
+                        </div>
+                    </div>
+                </div>
+
+                <aside class="side-panel">
+                    <div class="section-panel">
+                        <h4>फ़ाइल मैनेजमेंट</h4>
+                        <ul class="file-list">
+                            <li>📂 WSD/155 - Sharma vs. State</li>
+                            <li>📂 WSD/201 - Rathi vs. Mehta</li>
+                            <li>📂 WSD/078 - Khan vs. Union</li>
+                            <li><button class="cta-button tertiary" style="width: 100%; margin-top: 10px;">सभी फ़ाइलें देखें</button></li>
+                        </ul>
+                    </div>
+
+                    <div class="section-panel">
+                        <h4>हाल के सबमिशन</h4>
+                        <ul>
+                            <li>New Client Doc (WSD/180)</li>
+                            <li>Password Reset Request (Sunil)</li>
+                        </ul>
+                    </div>
+                </aside>
             </div>
-            </main>
+        </main>
     </div>
 </body>
 </html>
