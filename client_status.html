@@ -35,8 +35,8 @@
     </div>
 
     <script>
-        // Aapka Apps Script Web app URL yahaan daal diya gaya hai
-        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxqsj-jfgbJntvYt0qGcAxClD3nFDtE1ekFHEYOqebSpONwCpnFbF8_zcu5ww5-5oAGvg/exec";
+        // *** Naya Apps Script Web app URL yahaan daal diya gaya hai ***
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyXlBi3nFkvaxEpxXkwjitN6IOvntYpyS95Fh1v2NH9kQNJi86bf6pcgTVssOjaBmCk3Q/exec";
         
         // Demo Mobile Number: Yeh number aapki '4. CASE_DATA' sheet se data filter karega.
         const CLIENT_MOBILE_NUMBER = "9876543210"; 
@@ -61,13 +61,9 @@
                 // Headers ke index nikalna (Zaroori hai!)
                 const mobileIndex = headers.indexOf("CLIENT_MOBILE");
                 const approvedIndex = headers.indexOf("IS_APPROVED");
-                const fileNameIndex = headers.indexOf("FILE_NAME");
-                const nextHearingIndex = headers.indexOf("NEXT_HEARING");
-                const stageIndex = headers.indexOf("CURRENT_STAGE");
-                const caseNumIndex = headers.indexOf("NEW_CASE_NUM");
-                const courtNameIndex = headers.indexOf("COURT_NAME");
                 
                 // 3. Client ka data filter karna
+                // Filter only approved cases matching the hardcoded mobile number
                 const clientCases = caseData.filter(row => 
                     row[mobileIndex] == CLIENT_MOBILE_NUMBER && row[approvedIndex] == "YES"
                 );
@@ -77,7 +73,7 @@
             } catch (error) {
                 console.error("Data fetching failed:", error);
                 document.querySelector('.section-panel').innerHTML = 
-                    `<h2 style="color:red;">⚠️ Error! Could not connect to the database.</h2><p>Please try reloading the page. If the issue persists, contact the Advocate's office.</p>`;
+                    `<h2 style="color:red;">⚠️ Error! Could not connect to the database.</h2><p>Please ensure the Apps Script URL is correct and authorized to run. Try reloading the page.</p>`;
             }
         }
 
