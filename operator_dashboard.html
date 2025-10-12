@@ -3,31 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Operator Dashboard | Walil Sahab Diary</title>
+    <title>Operator Dashboard | Vakil Sahab Dairy</title>
     <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
     <div class="dashboard-container">
         <aside class="sidebar">
-            <div class="logo-area">
-                <h2 class="logo-text">⚖️ Walil Sahab Diary</h2>
-                <p class="slogan">न्याय की ओर</p>
-            </div>
+            <div class="logo-area"><h2 class="logo-text">⚖️ Vakil Sahab Dairy</h2><p class="slogan">न्याय की ओर</p></div>
             <nav class="nav-links">
-                <a href="#" class="active" data-en="Dashboard" data-hi="डैशबोर्ड">डैशबोर्ड</a>
-                <a href="operator_new_case.html" data-en="New Case File Entry" data-hi="नई मामला फ़ाइल एंट्री">नई मामला फ़ाइल एंट्री</a>
-                <a href="operator_calendar.html" data-en="Hearing Calendar (Today's List)" data-hi="सुनवाई कैलेंडर (आज की लिस्ट)">सुनवाई कैलेंडर (आज की लिस्ट)</a>
-                <a href="#correction" data-en="Correction Request" data-hi="सुधार अनुरोध">सुधार अनुरोध</a>
+                <a href="#" class="active">डैशबोर्ड</a>
+                <a href="operator_new_case.html">1. New Case Entry</a>
+                <a href="operator_calendar.html">2. Hearing Calender</a>
+                <a href="#correction">3. Old Case Entry Correction</a>
+                <a href="#search">4. File Search</a>
+                <a href="#document_upload">5. Document Upload</a>
             </nav>
         </aside>
         <main class="main-content">
-            <header class="main-header"><h1>Operator Control Panel</h1></header>
+            <header class="main-header">
+                <h1>Operator Control Panel</h1>
+                <div class="user-info">
+                    <span>Welcome, Operator Sunil!</span> 
+                    <button class="logout-btn" onclick="location.href='index.html';">Log Out</button>
+                </div>
+            </header>
             <div class="metrics-grid">
                 <div class="metric-card red-bg"><h3>Today's Hearings</h3><p class="count">4</p></div>
                 <div class="metric-card blue-bg"><h3>My Active Cases</h3><p class="count">85</p></div>
                 <div class="metric-card green-bg"><h3>Pending Approval Status</h3><p class="count">2</p></div>
             </div>
-        </main>
+            </main>
     </div>
 </body>
 </html>

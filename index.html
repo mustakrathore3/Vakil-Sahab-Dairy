@@ -3,28 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | Walil Sahab Diary</title>
+    <title>Login | Vakil Sahab Dairy</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="login-container">
         <div class="login-box">
-            <h2 class="logo-text">⚖️ Walil Sahab Diary</h2>
+            <h2 class="logo-text">⚖️ Vakil Sahab Dairy</h2>
             <p class="slogan">आपका डिजिटल न्यायिक सहायक</p>
-            <div class="login-tabs">
-                <button class="active">Operator Login</button>
-                <button>Admin/Client Login</button>
-            </div>
+            
+            <button onclick="location.href='registration.html'" class="cta-button" style="background-color: #27ae60; margin-bottom: 20px;">
+                नया रजिस्ट्रेशन करें (Advocate)
+            </button>
+            
+            <h3>Login Panel</h3>
             <form action="operator_dashboard.html" method="GET" class="login-form"> 
-                <label for="mobile">Login ID / मोबाइल नंबर:</label>
-                <input type="text" id="mobile" placeholder="Your Registered ID" required>
-                <label for="password">Password / पासवर्ड:</label>
-                <input type="password" id="password" required>
-                <button type="submit" class="cta-button">
-                    लॉग इन करें / Log In
-                </button>
+                <label for="role_select">Select Login Type:</label>
+                <select id="role_select" onchange="updateLoginForm(this.value)">
+                    <option value="admin">1. Admin Login (Email/Password)</option>
+                    <option value="operator" selected>2. Operator/Assistant Login (Mobile/Password)</option>
+                    <option value="client">3. Client Login (Mobile/OTP)</option>
+                </select>
+                
+                <div id="credentials_form">
+                    <label for="user_id">Mobile Number:</label>
+                    <input type="text" id="user_id" placeholder="Your Registered Mobile Number" required>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" placeholder="Password (Default: Opretor@123)" required>
+                    <a href="#" class="forgot-link">Forget Password? (Admin Approval Required)</a>
+                </div>
+                
+                <button type="submit" class="cta-button">लॉग इन करें / Log In</button>
             </form>
         </div>
     </div>
+    <script>
+        function updateLoginForm(role) {
+            const formDiv = document.getElementById('credentials_form');
+            const form = document.querySelector('.login-form');
+            // Login check hone par yeh actions change honge
+            form.action = role === 'admin' ? 'admin_panel.html' : 
+                           role === 'operator' ? 'operator_dashboard.html' : 
+                           'client_status.html';
+                           
+            let html = '';
+            if (role === 'admin') {
+                html = `
+                    <label for="user_id">Email ID (User Name):</label>
+                    <input type="email" id="user_id" placeholder="Your Registered Email" required>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" placeholder="Password (Default: Admin@123)" required>
+                    <a href="#" class="forgot-link">Forget Password?</a>
+                `;
+            } else if (role === 'operator') {
+                 html = `
+                    <label for="user_id">Mobile Number:</label>
+                    <input type="text" id="user_id" placeholder="Your Registered Mobile Number" required>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" placeholder="Password (Default: Opretor@123)" required>
+                    <a href="#" class="forgot-link">Forget Password? (Admin Approval Required)</a>
+                `;
+            } else if (role === 'client') {
+                 html = `
+                    <label for="user_id">Mobile Number:</label>
+                    <input type="text" id="user_id" placeholder="Case Entry mein Diya Gaya Mobile Number" required>
+                    <button type="button" class="cta-button" style="background-color: #f39c12; margin-top: 10px;">Send OTP</button>
+                    <label for="otp">Enter OTP:</label>
+                    <input type="text" id="otp" placeholder="Enter OTP received on mobile" required>
+                `;
+            }
+            formDiv.innerHTML = html;
+        }
+    </script>
 </body>
 </html>

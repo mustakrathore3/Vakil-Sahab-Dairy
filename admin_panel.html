@@ -3,38 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard | Walil Sahab Diary</title>
+    <title>Admin Dashboard | Vakil Sahab Dairy</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="dashboard-container">
         <aside class="sidebar">
-            <div class="logo-area">
-                <h2 class="logo-text">⚖️ Walil Sahab Diary</h2>
-                <p class="slogan">न्याय की ओर</p>
-            </div>
+            <div class="logo-area"><h2 class="logo-text">⚖️ Vakil Sahab Dairy</h2><p class="slogan">न्याय की ओर</p></div>
             <nav class="nav-links">
-                <a href="#" class="active" data-en="Dashboard" data-hi="डैशबोर्ड">डैशबोर्ड</a>
-                <a href="#pending" data-en="Pending Approvals" data-hi="लंबित अनुमोदन">लंबित अनुमोदन</a> 
-                <a href="operator_new_case.html" data-en="New File Entry (Self)" data-hi="नई फ़ाइल एंट्री (स्वयं)">नई फ़ाइल एंट्री (स्वयं)</a>
-                <a href="#calendar" data-en="Hearing Calendar" data-hi="सुनवाई कैलेंडर">सुनवाई कैलेंडर</a>
-                <a href="#user_mgmt" data-en="User Management" data-hi="उपयोगकर्ता प्रबंधन">उपयोगकर्ता प्रबंधन</a> 
-                <a href="#court_setup" data-en="Court Master Setup" data-hi="कोर्ट मास्टर सेटअप">कोर्ट मास्टर सेटअप</a>
+                <a href="#" class="active">डैशबोर्ड</a>
+                <a href="#requests">रिक्वेस्ट मैनेजमेंट</a> 
+                <a href="#oprator_create">ऑपरेटर/असिस्टेंट क्रिएट</a>
+                <a href="#court_mgmt">कोर्ट मैनेजमेंट</a>
             </nav>
         </aside>
         <main class="main-content">
-            <header class="main-header"><h1>Admin Control Panel</h1></header>
-            <div class="metrics-grid">
-                <div class="metric-card red-bg" id="pending"><h3>Pending Approvals</h3><p class="count">4</p></div>
-                <div class="metric-card blue-bg"><h3>My Mapped Operators</h3><p class="count">5</p></div>
-                <div class="metric-card green-bg"><h3>Active Cases (My Team)</h3><p class="count">180</p></div>
-            </div>
-            <div class="section-panel">
-                <h2>Action Required: Operator Approvals</h2>
-                <table class="approval-table">
-                    <thead><tr><th>Type</th><th>Operator</th><th>Case ID</th><th>Action</th></tr></thead>
-                    <tbody><tr><td>New Case Entry</td><td>Sunil K.</td><td>Pending/New</td><td><button class="approve-btn">Review & Approve</button></td></tr></tbody>
-                </table>
+            <header class="main-header">
+                <h1>Admin Control Panel (Gupta & Co.)</h1>
+                <div class="user-info">
+                    <span>Welcome, Admin!</span> 
+                    <button class="logout-btn" onclick="location.href='index.html';">Log Out</button>
+                </div>
+            </header>
+            
+            <div style="display: flex; gap: 20px;">
+                <div style="flex: 3;">
+                    <div class="metrics-grid">
+                        <div class="metric-card red-bg"><h3>Pending Approvals</h3><p class="count">4</p></div>
+                        <div class="metric-card blue-bg"><h3>Total Operators</h3><p class="count">5</p></div>
+                        <div class="metric-card green-bg"><h3>Active Cases</h3><p class="count">180</p></div>
+                    </div>
+                    
+                    <div class="section-panel" id="requests">
+                        <h2>रिक्वेस्ट मैनेजमेंट (Action Required)</h2>
+                        <table class="approval-table">
+                            <thead><tr><th>Type</th><th>Operator/Client</th><th>Case ID</th><th>Action</th></tr></thead>
+                            <tbody>
+                                <tr><td>Operator Password Reset</td><td>Sunil K. (99XX)</td><td>N/A</td><td><button class="approve-btn" style="background-color: #27ae60;">Approve/Reject</button></td></tr>
+                                <tr><td>Hearing Date Change</td><td>Ravi M. (88XX)</td><td>WSD/105</td><td><button class="approve-btn" style="background-color: #f39c12;">Modify/Approve</button></td></tr>
+                                <tr><td>Client Document Access</td><td>Client C (77XX)</td><td>WSD/180</td><td><button class="approve-btn" style="background-color: #f39c12;">Approve (2 Days)</button></td></tr>
+                                <tr><td>New Case Entry</td><td>Sunil K. (99XX)</td><td>Pending/New</td><td><button class="approve-btn" style="background-color: #c0392b; color: white;">Approve/Reject</button></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="section-panel" id="oprator_create" style="margin-top: 30px;">
+                        <h2>ऑपरेटर/असिस्टेंट क्रिएट (Active/Deactive)</h2>
+                        <form class="case-form">
+                            <div class="form-row half-width"><label>Assistant Name:</label><input type="text"></div>
+                            <div class="form-row half-width"><label>Mobile Number:</label><input type="text"></div>
+                            <div class="form-row half-width"><label>Email:</label><input type="email"></div>
+                            <div class="form-row half-width"><label>Tehsil (Jurisdiction):</label><select><option>Jaipur</option></select></div>
+                            <div class="form-row full-width"><button type="submit" class="cta-button" style="background-color: #2980b9;">Create ID & Send Default Password</button></div>
+                        </form>
+                    </div>
+                </div>
+
+                <div style="flex: 1; padding: 20px; background-color: #fee; border: 2px solid #c0392b; border-radius: 8px;">
+                    <h3>⚠️ Hearing Date Pending</h3>
+                    <p style="color: #c0392b; font-size: 0.9em; font-weight: 600;">जिन फ़ाइलों की सुनवाई की तारीख अपडेट नहीं हुई है:</p>
+                    <ul class="file-list" style="color: #c0392b;">
+                        <li>WSD/155 - Sharma vs. State</li>
+                        <li>WSD/201 - Rathi vs. Mehta</li>
+                        <li>WSD/109 - (3 more...)</li>
+                    </ul>
+                </div>
             </div>
         </main>
     </div>
