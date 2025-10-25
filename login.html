@@ -7,12 +7,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        :root {
-            --primary-color: #2563eb;
-            --secondary-color: #f59e0b;
-            --success-color: #10b981;
-        }
-        
         body {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
@@ -38,7 +32,7 @@
         }
         
         .login-header h2 {
-            color: var(--primary-color);
+            color: #2563eb;
             font-weight: 700;
         }
         
@@ -66,9 +60,9 @@
         }
         
         .role-btn.active {
-            background: var(--primary-color);
+            background: #2563eb;
             color: white;
-            border-color: var(--primary-color);
+            border-color: #2563eb;
         }
         
         .role-btn i {
@@ -81,16 +75,16 @@
             border-radius: 10px;
             padding: 12px;
             border: 2px solid #e2e8f0;
-            transition: all 0.3s;
         }
         
         .form-control:focus {
-            border-color: var(--primary-color);
+            border-color: #2563eb;
             box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.25);
+            outline: none;
         }
         
         .btn-login {
-            background: var(--primary-color);
+            background: #2563eb;
             color: white;
             padding: 12px;
             border-radius: 10px;
@@ -104,7 +98,6 @@
         .btn-login:hover {
             background: #1d4ed8;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
         }
         
         .login-form-section {
@@ -117,4 +110,210 @@
         
         .back-link {
             text-align: center;
-            margin-top
+            margin-top: 20px;
+        }
+        
+        .back-link a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <h2>Login</h2>
+            <p class="text-muted">Select your role to continue</p>
+        </div>
+        
+        <div class="role-selector">
+            <div class="role-btn active" onclick="selectRole('admin')" id="adminRole">
+                <i class="fas fa-user-shield"></i>
+                <span>Admin</span>
+            </div>
+            <div class="role-btn" onclick="selectRole('operator')" id="operatorRole">
+                <i class="fas fa-user-tie"></i>
+                <span>Operator</span>
+            </div>
+            <div class="role-btn" onclick="selectRole('client')" id="clientRole">
+                <i class="fas fa-user"></i>
+                <span>Client</span>
+            </div>
+        </div>
+        
+        <div class="login-form-section active" id="emailLoginForm">
+            <form id="loginForm">
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" class="form-control" id="email" placeholder="your@email.com" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+                </div>
+                
+                <button type="submit" class="btn btn-login">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+            </form>
+        </div>
+        
+        <div class="login-form-section" id="otpLoginForm">
+            <form id="otpForm">
+                <div class="mb-3">
+                    <label for="clientMobile" class="form-label">Mobile Number</label>
+                    <input type="tel" class="form-control" id="clientMobile" placeholder="9876543210" pattern="[0-9]{10}" required>
+                </div>
+                
+                <div id="recaptcha-container"></div>
+                
+                <button type="button" class="btn btn-login mb-3" onclick="sendOTP()">
+                    <i class="fas fa-mobile-alt"></i> Send OTP
+                </button>
+                
+                <div class="mb-3" id="otpInputSection" style="display: none;">
+                    <label for="otpCode" class="form-label">Enter OTP</label>
+                    <input type="text" class="form-control" id="otpCode" placeholder="Enter 6-digit OTP" maxlength="6">
+                    
+                    <button type="button" class="btn btn-login mt-3" onclick="verifyOTP()">
+                        <i class="fas fa-check"></i> Verify OTP
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        <div class="back-link">
+            <a href="register.html">Don't have an account? Register here</a>
+        </div>
+        
+        <div class="back-link">
+            <a href="index.html"><i class="fas fa-home"></i> Back to Home</a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-firestore-compat.js"></script>
+    
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyBDr6dV5_I20NQK1UU-EVazfyW-KlM5oBI",
+            authDomain: "vakilsahabdairy.firebaseapp.com",
+            projectId: "vakilsahabdairy",
+            storageBucket: "vakilsahabdairy.firebasestorage.app",
+            messagingSenderId: "8534746153",
+            appId: "1:8534746153:web:4973290db36d4f21e52838"
+        };
+        
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        
+        let currentRole = 'admin';
+        let confirmationResult;
+        
+        function selectRole(role) {
+            currentRole = role;
+            document.querySelectorAll('.role-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(role + 'Role').classList.add('active');
+            
+            if (role === 'client') {
+                document.getElementById('emailLoginForm').classList.remove('active');
+                document.getElementById('otpLoginForm').classList.add('active');
+                setTimeout(() => setupRecaptcha(), 500);
+            } else {
+                document.getElementById('emailLoginForm').classList.add('active');
+                document.getElementById('otpLoginForm').classList.remove('active');
+            }
+        }
+        
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            try {
+                const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+                const userDoc = await db.collection('advocates').doc(user.uid).get();
+                
+                if (userDoc.exists) {
+                    const userData = userDoc.data();
+                    if (currentRole === 'admin' && userData.role === 'admin') {
+                        window.location.href = 'admin-dashboard.html';
+                    } else if (currentRole === 'operator' && userData.role === 'operator') {
+                        window.location.href = 'operator-dashboard.html';
+                    } else {
+                        alert('Invalid role selected!');
+                        auth.signOut();
+                    }
+                } else {
+                    alert('User data not found!');
+                    auth.signOut();
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                alert('Login failed! Please check your credentials.');
+            }
+        });
+        
+        function setupRecaptcha() {
+            if (!window.recaptchaVerifier) {
+                window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+                    'size': 'normal',
+                    'callback': (response) => console.log('reCAPTCHA solved')
+                });
+                window.recaptchaVerifier.render();
+            }
+        }
+        
+        async function sendOTP() {
+            const mobile = document.getElementById('clientMobile').value;
+            if (mobile.length !== 10) {
+                alert('Please enter a valid 10-digit mobile number!');
+                return;
+            }
+            
+            const phoneNumber = '+91' + mobile;
+            const appVerifier = window.recaptchaVerifier;
+            
+            try {
+                confirmationResult = await auth.signInWithPhoneNumber(phoneNumber, appVerifier);
+                document.getElementById('otpInputSection').style.display = 'block';
+                alert('OTP sent successfully!');
+            } catch (error) {
+                console.error('Error sending OTP:', error);
+                alert('Error sending OTP. Please try again.');
+            }
+        }
+        
+        async function verifyOTP() {
+            const code = document.getElementById('otpCode').value;
+            if (code.length !== 6) {
+                alert('Please enter a valid 6-digit OTP!');
+                return;
+            }
+            
+            try {
+                const result = await confirmationResult.confirm(code);
+                const mobile = document.getElementById('clientMobile').value;
+                const casesSnapshot = await db.collection('cases').where('clientMobile', '==', mobile).get();
+                
+                if (!casesSnapshot.empty) {
+                    window.location.href = 'client-dashboard.html';
+                } else {
+                    alert('No cases found for this mobile number!');
+                    auth.signOut();
+                }
+            } catch (error) {
+                console.error('Error verifying OTP:', error);
+                alert('Invalid OTP! Please try again.');
+            }
+        }
+    </script>
+</body>
+</html>
