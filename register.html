@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Vakil Sahab Dairy</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #f59e0b;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .register-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            margin: 20px;
+        }
+        
+        .register-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .register-header h2 {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .form-control {
+            border-radius: 10px;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.25);
+        }
+        
+        .btn-register {
+            background: var(--primary-color);
+            color: white;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            width: 100%;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-register:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
+        }
+        
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .back-link a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .language-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .lang-btn {
+            background: white;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            padding: 8px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .lang-btn:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Toggle -->
+    <div class="language-toggle">
+        <button class="lang-btn" onclick="toggleLanguage()">
+            <i class="fas fa-language"></i> <span id="langText">हिंदी</span>
+        </button>
+    </div>
+
+    <div class="register-container">
+        <div class="register-header">
+            <h2 id="pageTitle">Advocate Registration</h2>
+            <p class="text-muted" id="pageSubtitle">Create your account to get started</p>
+        </div>
+        
+        <form id="registerForm">
+            <div class="mb-3">
+                <label for="advocateName" class="form-label" id="labelName">Full Name</label>
+                <input type="text" class="form-control" id="advocateName" placeholder="Enter your full name" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="dob" class="form-label" id="labelDob">Date of Birth</label>
+                <input type="date" class="form-control" id="dob" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="chamber" class="form-label" id="labelChamber">Chamber Address</label>
+                <input type="text" class="form-control" id="chamber" placeholder="Enter chamber address" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="mobile" class="form-label" id="labelMobile">Mobile Number</label>
+                <input type="tel" class="form-control" id="mobile" placeholder="+91 XXXXXXXXXX" pattern="[0-9]{10}" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="email" class="form-label" id="labelEmail">Email Address</label>
+                <input type="email" class="form-control" id="email" placeholder="your@email.com" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="password" class="form-label" id="labelPassword">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Create a strong password" minlength="6" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="confirmPassword" class="form-label" id="labelConfirmPassword">Confirm Password</label>
+                <input type="password" class="form-control" id="confirmPassword" placeholder="Re-enter your password" minlength="6" required>
+            </div>
+            
+            <button type="submit" class="btn btn-register" id="btnSubmit">
+                <i class="fas fa-user-plus"></i> <span id="btnText">Register</span>
+            </button>
+        </form>
+        
+        <div class="back-link">
+            <a href="login.html" id="loginLink">Already have an account? Login here</a>
+        </div>
+        
+        <div class="back-link">
+            <a href="index.html" id="homeLink"><i class="fas fa-home"></i> Back to Home</a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.2/firebase-firestore-compat.js"></script>
+    
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBDr6dV5_I20NQK1UU-EVazfyW-KlM5oBI",
+            authDomain: "vakilsahabdairy.firebaseapp.com",
+            projectId: "vakilsahabdairy",
+            storageBucket: "vakilsahabdairy.firebasestorage.app",
+            messagingSenderId: "8534746153",
+            appId: "1:8534746153:web:4973290db36d4f21e52838"
+        };
+        
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        
+        // Language Toggle
+        let currentLang = 'en';
+        
+        const translations = {
+            en: {
+                langText: 'हिंदी',
+                pageTitle: 'Advocate Registration',
+                pageSubtitle: 'Create your account to get started',
+                labelName: 'Full Name',
+                labelDob: 'Date of Birth',
+                labelChamber: 'Chamber Address',
+                labelMobile: 'Mobile Number',
+                labelEmail: 'Email Address',
+                labelPassword: 'Password',
+                labelConfirmPassword: 'Confirm Password',
+                btnText: 'Register',
+                loginLink: 'Already have an account? Login here',
+                homeLink: 'Back to Home'
+            },
+            hi: {
+                langText: 'English',
+                pageTitle: 'अधिवक्ता पंजीकरण',
+                pageSubtitle: 'शुरू करने के लिए अपना खाता बनाएं',
+                labelName: 'पूरा नाम',
+                labelDob: 'जन्म तिथि',
+                labelChamber: 'चैंबर का पता',
+                labelMobile: 'मोबाइल नंबर',
+                labelEmail: 'ईमेल पता',
+                labelPassword: 'पासवर्ड',
+                labelConfirmPassword: 'पासवर्ड की पुष्टि करें',
+                btnText: 'रजिस्टर करें',
+                loginLink: 'पहले से खाता है? यहां लॉगिन करें',
+                homeLink: 'होम पर वापस जाएं'
+            }
+        };
+        
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'hi' : 'en';
+            updateLanguage();
+        }
+        
+        function updateLanguage() {
+            const lang = translations[currentLang];
+            Object.keys(lang).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    element.textContent = lang[key];
+                }
+            });
+        }
+        
+        // Registration Form Handler
+        document.getElementById('registerForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('advocateName').value;
+            const dob = document.getElementById('dob').value;
+            const chamber = document.getElementById('chamber').value;
+            const mobile = document.getElementById('mobile').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            // Validation
+            if (password !== confirmPassword) {
+                alert(currentLang === 'en' ? 'Passwords do not match!' : 'पासवर्ड मेल नहीं खाते!');
+                return;
+            }
+            
+            if (mobile.length !== 10) {
+                alert(currentLang === 'en' ? 'Please enter a valid 10-digit mobile number!' : 'कृपया 10 अंकों का मोबाइल नंबर दर्ज करें!');
+                return;
+            }
+            
+            try {
+                // Create user account
+                const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+                
+                // Save user data to Firestore
+                await db.collection('advocates').doc(user.uid).set({
+                    name: name,
+                    dob: dob,
+                    chamber: chamber,
+                    mobile: mobile,
+                    email: email,
+                    role: 'admin', // First registration is admin
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                
+                alert(currentLang === 'en' ? 'Registration successful! Redirecting to login...' : 'पंजीकरण सफल! लॉगिन पर पुनर्निर्देशित किया जा रहा है...');
+                window.location.href = 'login.html';
+                
+            } catch (error) {
+                console.error('Registration error:', error);
+                let errorMsg = error.message;
+                if (error.code === 'auth/email-already-in-use') {
+                    errorMsg = currentLang === 'en' ? 'Email already registered!' : 'ईमेल पहले से पंजीकृत है!';
+                } else if (error.code === 'auth/weak-password') {
+                    errorMsg = currentLang === 'en' ? 'Password should be at least 6 characters!' : 'पासवर्ड कम से कम 6 अक्षरों का होना चाहिए!';
+                }
+                alert(errorMsg);
+            }
+        });
+    </script>
+</body>
+</html>
