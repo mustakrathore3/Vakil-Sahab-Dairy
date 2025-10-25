@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Client Dashboard</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script type="module" src="../js/firebase.js"></script>
+</head>
+<body>
+    <h2>Client Login</h2>
+    <form>
+        <input type="tel" placeholder="Mobile Number" required>
+        <button>Send OTP</button>
+        <input type="text" placeholder="Enter OTP" required>
+        <button>Login</button>
+    </form>
+    <main>
+        <h3>Your Cases</h3>
+        <button>Request Document Access</button>
+        <form>
+            <textarea placeholder="Case Contact (max 2000 words

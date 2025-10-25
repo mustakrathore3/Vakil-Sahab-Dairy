@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script type="module" src="../js/firebase.js"></script>
+</head>
+<body>
+    <h2>Login</h2>
+    <select id="loginType">
+        <option>Admin Login</option>
+        <option>Operator/Assistant Login</option>
+        <option>Client Login</option>
+    </select>
+    <form id="loginForm">
+        <input type="text" id="userId" placeholder="User ID/Email/Mobile" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+        <a href="#" id="forgetPass">Forget Password</a>
+    </form>
+    <script type="module" src="../js/app.js"></script>
+</body>
+</html>\
