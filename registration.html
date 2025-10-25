@@ -2,41 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advocate Registration | Vakil Sahab Diary</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Registration</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script type="module" src="../js/firebase.js"></script>
 </head>
 <body>
-    <div class="login-container">
-        <div class="login-box" style="width: 450px;">
-            <h2 class="logo-text">⚖️ Advocate Registration</h2>
-            <p class="slogan">Master Admin ID ke liye register karein</p>
-            
-            <form action="index.html" method="POST" class="login-form"> 
-                <label for="adv_name">Advocate Name:</label>
-                <input type="text" id="adv_name" required>
-                
-                <label for="dob">Date of Birth:</label>
-                <input type="date" id="dob" required>
-                
-                <label for="chamber_name">Advocate Office/Chamber Name:</label>
-                <input type="text" id="chamber_name" required>
-
-                <label for="mobile">Mobile Number (Login ID):</label>
-                <input type="text" id="mobile" required>
-                
-                <label for="email">Email Id (Login User Name):</label>
-                <input type="email" id="email" required>
-                
-                <label for="captcha">Captcha (Demo: Enter 1234):</label>
-                <input type="text" id="captcha" required>
-                
-                <button type="submit" class="cta-button" style="background-color: #4a148c;">
-                    Submit & Get Admin ID
-                </button>
-            </form>
-            <a href="index.html" class="forgot-link">Back to Login</a>
-        </div>
-    </div>
+    <h2>Advocate Registration</h2>
+    <form id="regForm">
+        <input type="text" placeholder="Advocate Name" required>
+        <input type="date" placeholder="Date of Birth" required>
+        <input type="text" placeholder="Advocate Office/Chamber Name" required>
+        <input type="tel" placeholder="Mobile Number" required>
+        <input type="email" placeholder="Email Id" required>
+        <input type="text" placeholder="Captcha (Enter 1234)" required>
+        <button type="submit">Submit</button>
+    </form>
+    <script type="module" src="../js/app.js"></script>
 </body>
 </html>
